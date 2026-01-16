@@ -2,233 +2,360 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Siamotirannous Mesozoico Minigame Trainer</title>
+<title>Siamotyrannus Minigame Trainer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
 <style>
-    body {
-        background: #1e1e1e;
-        color: #e0e0e0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        text-align: center;
-        margin-top: 60px;
-    }
+  :root {
+    --accent: #38bdf8;
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --border-subtle: #1f2937;
+  }
 
-    h1 {
-        font-weight: 300;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-    }
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 32px 16px;
+  }
 
-    #config {
-        margin-bottom: 20px;
-    }
+  .page {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 24px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    padding: 28px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.6);
+    animation: fadeIn 0.8s ease-out;
+  }
 
-    .configRow {
-        margin: 10px 0;
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    label {
-        display: inline-block;
-        width: 200px;
-        text-align: right;
-        margin-right: 10px;
-        font-size: 16px;
-        color: #ccc;
-    }
+  .header { margin-bottom: 20px; }
 
-    input {
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 6px;
-        border: none;
-        background: #2c2c2c;
-        color: #fff;
-        width: 160px;
-        text-align: center;
-    }
+  .eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
 
-    #startBtn {
-        padding: 12px 25px;
-        font-size: 18px;
-        cursor: pointer;
-        border: none;
-        border-radius: 6px;
-        background: #4a8cff;
-        color: white;
-        margin-top: 15px;
-        transition: background 0.2s;
-    }
+  h1 {
+    margin: 4px 0;
+    font-size: 1.6rem;
+    font-weight: 650;
+  }
 
-    #startBtn:hover {
-        background: #3a74d6;
-    }
+  .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
 
-    #letterBox {
-        width: 180px;
-        height: 180px;
-        margin: 40px auto;
-        background: #333;
-        border-radius: 12px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 0.15s;
-    }
+  .tool-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    border-radius: 18px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    margin-bottom: 20px;
+  }
 
-    #letter {
-        font-size: 120px;
-        font-weight: 600;
-    }
+  .configRow {
+    margin: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    #results {
-        margin-top: 30px;
-        font-size: 22px;
-    }
+  label {
+    font-size: 15px;
+    color: var(--text-muted);
+  }
+
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    width: 120px;
+    text-align: center;
+  }
+
+  #startBtn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #4e8cff;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0px rgba(78, 140, 255, 0.6); }
+    50% { box-shadow: 0 0 12px rgba(78, 140, 255, 1); }
+    100% { box-shadow: 0 0 0px rgba(78, 140, 255, 0.6); }
+  }
+
+  #startBtn:hover { background: #6ea0ff; }
+
+  /* PROGRESS BAR */
+  #progressContainer {
+    width: 100%;
+    height: 16px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  #progressBar {
+    height: 100%;
+    width: 100%;
+    background: #38bdf8;
+    transition: width 0.2s linear, background 0.3s ease;
+  }
+
+  #letterBox {
+    width: 200px;
+    height: 200px;
+    margin: 30px auto 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.15s;
+    font-size: 120px;
+    font-weight: 700;
+    color: white;
+  }
+
+  #missCounter {
+    text-align: center;
+    font-size: 18px;
+    color: #f87171;
+    margin-bottom: 10px;
+  }
+
+  #results {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
 </style>
 </head>
+
 <body>
 
-<h1>Siamotirannous Mesozoico – Minigame Trainer</h1>
+<main class="page">
 
-<div id="config">
+  <header class="header">
+    <div class="eyebrow">Trainer</div>
+    <h1>Siamotyrannus Minigame</h1>
+    <p class="subtitle">Improve your reaction time and accuracy</p>
+  </header>
 
+  <!-- CONFIG CARD -->
+  <div class="tool-card">
     <div class="configRow">
-        <label for="duration">Session duration (seconds):</label>
-        <input id="duration" type="number" value="30" min="1">
+      <label>Session duration (seconds):</label>
+      <input id="duration" type="number" value="30" min="1">
     </div>
 
     <div class="configRow">
-        <label for="maxErrors">Max errors allowed (0 = unlimited):</label>
-        <input id="maxErrors" type="number" value="0" min="0">
+      <label>Max errors allowed (0 = unlimited):</label>
+      <input id="maxErrors" type="number" value="0" min="0">
     </div>
 
     <div class="configRow">
-        <label for="keyTime">Seconds allowed per key (0 = disabled):</label>
-        <input id="keyTime" type="number" value="0" min="0" step="0.1">
+      <label>Seconds allowed per key (0 = disabled):</label>
+      <input id="keyTime" type="number" value="0" min="0" step="0.1">
     </div>
 
-</div>
+    <button id="startBtn">Start</button>
+  </div>
 
-<button id="startBtn">Start</button>
+  <!-- PROGRESS BAR -->
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+  </div>
 
-<div id="letterBox">
+  <!-- MISS COUNTER -->
+  <div id="missCounter">Misses: 0</div>
+
+  <!-- GAME BOX -->
+  <div id="letterBox">
     <div id="letter">?</div>
-</div>
+  </div>
 
-<div id="results"></div>
+  <!-- RESULTS -->
+  <div id="results"></div>
+
+  <a class="back-link" href="../index.html">← Back to Hub</a>
+
+</main>
 
 <script>
-    const letters = ["W", "A", "S", "D"];
-    let current = "";
-    let lastLetter = "";
-    let hits = 0;
-    let misses = 0;
-    let running = false;
-    let timeLeft = 0;
-    let keyTimer = null;
-    let reactionTimes = [];
-    let lastKeyTime = 0;
+  const letters = ["W", "A", "S", "D"];
+  let current = "";
+  let lastLetter = "";
+  let hits = 0;
+  let misses = 0;
+  let running = false;
+  let timeLeft = 0;
+  let totalTime = 0;
+  let keyTimer = null;
+  let reactionTimes = [];
+  let lastKeyTime = 0;
 
-    const letterDiv = document.getElementById("letter");
-    const letterBox = document.getElementById("letterBox");
-    const resultsDiv = document.getElementById("results");
-    const startBtn = document.getElementById("startBtn");
+  const letterDiv = document.getElementById("letter");
+  const letterBox = document.getElementById("letterBox");
+  const resultsDiv = document.getElementById("results");
+  const missCounter = document.getElementById("missCounter");
+  const progressBar = document.getElementById("progressBar");
 
-    function flash(color) {
-        letterBox.style.background = color;
-        setTimeout(() => {
-            letterBox.style.background = "#333";
-        }, 150);
-    }
+  function updateProgress() {
+    const percent = (timeLeft / totalTime) * 100;
+    progressBar.style.width = percent + "%";
 
-    function newLetter() {
-        let next;
-        do {
-            next = letters[Math.floor(Math.random() * letters.length)];
-        } while (next === lastLetter);
+    if (percent < 30) progressBar.style.background = "#ef4444";
+    else if (percent < 60) progressBar.style.background = "#facc15";
+    else progressBar.style.background = "#38bdf8";
+  }
 
-        lastLetter = next;
-        current = next;
-        letterDiv.textContent = current;
-        lastKeyTime = performance.now();
+  function flash(color) {
+    letterBox.style.background = color;
+    setTimeout(() => {
+      letterBox.style.background = "rgba(255,255,255,0.08)";
+    }, 150);
+  }
 
-        const keyLimit = parseFloat(document.getElementById("keyTime").value);
-        if (keyLimit > 0) {
-            clearTimeout(keyTimer);
-            keyTimer = setTimeout(() => {
-                misses++;
-                flash("#e74c3c");
-                newLetter();
-                checkEnd();
-            }, keyLimit * 1000);
-        }
-    }
+  function newLetter() {
+    let next;
+    do {
+      next = letters[Math.floor(Math.random() * letters.length)];
+    } while (next === lastLetter);
 
-    function startGame() {
-        hits = 0;
-        misses = 0;
-        reactionTimes = [];
-        running = true;
-        resultsDiv.textContent = "";
+    lastLetter = next;
+    current = next;
+    letterDiv.textContent = current;
+    lastKeyTime = performance.now();
 
-        const duration = parseInt(document.getElementById("duration").value);
-        timeLeft = duration;
-
+    const keyLimit = parseFloat(document.getElementById("keyTime").value);
+    if (keyLimit > 0) {
+      clearTimeout(keyTimer);
+      keyTimer = setTimeout(() => {
+        misses++;
+        missCounter.textContent = "Misses: " + misses;
+        flash("#e74c3c");
         newLetter();
-
-        const timer = setInterval(() => {
-            timeLeft--;
-            if (timeLeft <= 0 || !running) {
-                clearInterval(timer);
-                endGame();
-            }
-        }, 1000);
+        checkEnd();
+      }, keyLimit * 1000);
     }
+  }
 
-    function endGame() {
-        running = false;
-        clearTimeout(keyTimer);
-        letterDiv.textContent = "END";
+  function startGame() {
+    hits = 0;
+    misses = 0;
+    reactionTimes = [];
+    running = true;
+    resultsDiv.textContent = "";
+    missCounter.textContent = "Misses: 0";
 
-        const avg =
-            reactionTimes.length > 0
-                ? (reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length).toFixed(2)
-                : 0;
+    totalTime = parseInt(document.getElementById("duration").value);
+    timeLeft = totalTime;
 
-        resultsDiv.innerHTML = `
-            <p>Hits: ${hits}</p>
-            <p>Misses: ${misses}</p>
-            <p>Accuracy: ${Math.round((hits / (hits + misses)) * 100) || 0}%</p>
-            <p>Average reaction time: ${avg} ms</p>
-        `;
+    updateProgress();
+    newLetter();
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      updateProgress();
+
+      if (timeLeft <= 0 || !running) {
+        clearInterval(timer);
+        endGame();
+      }
+    }, 1000);
+  }
+
+  function endGame() {
+    running = false;
+    clearTimeout(keyTimer);
+    letterDiv.textContent = "END";
+
+    const avg =
+      reactionTimes.length > 0
+        ? (reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length).toFixed(2)
+        : 0;
+
+    resultsDiv.innerHTML = `
+      <p>Hits: ${hits}</p>
+      <p>Misses: ${misses}</p>
+      <p>Accuracy: ${Math.round((hits / (hits + misses)) * 100) || 0}%</p>
+      <p>Average reaction time: ${avg} ms</p>
+    `;
+  }
+
+  function checkEnd() {
+    const maxErrors = parseInt(document.getElementById("maxErrors").value);
+    if (maxErrors > 0 && misses >= maxErrors) {
+      endGame();
     }
+  }
 
-    function checkEnd() {
-        const maxErrors = parseInt(document.getElementById("maxErrors").value);
-        if (maxErrors > 0 && misses >= maxErrors) {
-            endGame();
-        }
+  document.addEventListener("keydown", (e) => {
+    if (!running) return;
+
+    const key = e.key.toUpperCase();
+    if (letters.includes(key)) {
+      if (key === current) {
+        hits++;
+        const now = performance.now();
+        reactionTimes.push(now - lastKeyTime);
+        flash("#2ecc71");
+      } else {
+        misses++;
+        missCounter.textContent = "Misses: " + misses;
+        flash("#e74c3c");
+      }
+      newLetter();
+      checkEnd();
     }
+  });
 
-    document.addEventListener("keydown", (e) => {
-        if (!running) return;
-
-        const key = e.key.toUpperCase();
-        if (letters.includes(key)) {
-            if (key === current) {
-                hits++;
-                const now = performance.now();
-                reactionTimes.push(now - lastKeyTime);
-                flash("#2ecc71");
-            } else {
-                misses++;
-                flash("#e74c3c");
-            }
-            newLetter();
-            checkEnd();
-        }
-    });
-
-    startBtn.addEventListener("click", startGame);
+  document.getElementById("startBtn").addEventListener("click", startGame);
 </script>
 
 </body>
